@@ -19,19 +19,6 @@ return {
       end,
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
-    -- { -- Project management
-    --   'ahmedkhalf/project.nvim',
-    --   config = function(_, _)
-    --     require('project_nvim').setup {
-    --       silent_chdir = true,
-    --       exclude_dirs = {
-    --         '~/',
-    --         '~/.config',
-    --         '~/.local',
-    --       },
-    --     }
-    --   end,
-    -- },
     -- Useful for getting pretty icons, but requires a Nerd Font.
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },

@@ -7,6 +7,7 @@ require('lazy').setup({
   require 'plugins/comment',
   require 'plugins/wm',
   require 'plugins/git',
+  require 'plugins/git-blame',
   require 'plugins/lang/csv',
   require 'plugins/whichkey',
   require 'plugins/coverage',
@@ -16,7 +17,10 @@ require('lazy').setup({
   require 'plugins/conform',
   require 'plugins/cmp',
   require 'plugins/aerial',
-  require 'plugins/catppuccin',
+  -- require 'plugins/noice',
+  require 'plugins/noirbuddy',
+  require 'plugins/overseer',
+  -- require 'plugins/catppuccin',
   require 'plugins/todo-comments',
   require 'plugins/mini',
   require 'plugins/treesitter',
@@ -30,6 +34,7 @@ require('lazy').setup({
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    border = 'none',
     icons = vim.g.have_nerd_font and {} or {
       cmd = '⌘',
       config = '🛠',

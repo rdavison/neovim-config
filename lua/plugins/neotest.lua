@@ -14,6 +14,7 @@ return {
   },
   config = function()
     require('neotest').setup {
+      log_level = vim.log.levels.DEBUG,
       adapters = {
         require 'neotest-python' {
           dap = { justMyCode = false, logToFile = true },
@@ -40,6 +41,7 @@ return {
 
     vim.keymap.set('n', '<leader>tf', function()
       require('neotest').run.run { vim.fn.expand '%', suite = false }
+      print 'hello world'
     end, { silent = true, desc = '[T]est [F]ile' })
 
     vim.keymap.set('n', '<leader>ta', function()

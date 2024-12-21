@@ -1,22 +1,31 @@
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('i', 'jj', '<Esc>')
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+local with_mode = function(mode)
+  return function(from, to, desc, opts)
+    if opts then
+      opts['desc'] = desc
+    end
+    vim.keymap.set(mode, from, to, opts)
+  end
+end
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<leader>ev', '<Cmd>e $MYVIMRC<CR>', { desc = '[E]dit $MY[V]IMRC' })
+local n = with_mode 'n'
+local i = with_mode 'i'
+local t = with_mode 't'
+
+n('<Esc>', '<cmd>nohlsearch<CR>', 'Unhighlight search results')
+i('jj', '<Esc>', 'Exit insert mode')
+n('<leader>e', vim.diagnostic.open_float, 'Show diagnostic [E]rror messages')
+n('<leader>q', vim.diagnostic.setloclist, 'Open diagnostic [Q]uickfix list')
+n('<leader>ev', '<Cmd>e $MYVIMRC<CR>', '[E]dit $MY[V]IMRC')
+n('[d', vim.diagnostic.goto_prev, 'Go to previous [D]iagnostic message')
+n(']d', vim.diagnostic.goto_next, 'Go to next [D]iagnostic message')
+t('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
+n('<C-S-left>', '<Cmd>vertical resize +1<CR>', 'Move focus to the left window')
+n('<C-S-right>', '<Cmd>vertical resize -1<CR>', 'Move focus to the right window')
+n('<C-S-down>', '<Cmd>resize -1<CR>', 'Move focus to the lower window')
+n('<C-S-up>', '<Cmd>resize +1<CR>', 'Move focus to the upper window')
+n('gei', '<C-i>', 'Jump in')
+n('geh', '<C-o>', 'Jump out')
+n('<C-o>', '<Nop>', '')
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

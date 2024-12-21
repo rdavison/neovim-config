@@ -9,7 +9,30 @@ return {
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim', opts = {} },
+    {
+      'j-hui/fidget.nvim',
+      config = function(_, opts)
+        require('fidget').setup(opts)
+      end,
+      opts = {
+        -- Options related to the notification window and buffer
+        notification = {
+          window = {
+            normal_hl = 'FidgetWindow', -- Base highlight group in the notification window
+            border_hl = 'FidgetBorder', -- Border around the notification window
+            winblend = 0, -- Background color opacity in the notification window
+            border = 'rounded', -- Border around the notification window
+            zindex = 45, -- Stacking priority of the notification window
+            max_width = 0, -- Maximum width of the notification window
+            max_height = 0, -- Maximum height of the notification window
+            x_padding = 1, -- Padding from right edge of window boundary
+            y_padding = 0, -- Padding from bottom edge of window boundary
+            align = 'bottom', -- How to align the notification window
+            relative = 'editor', -- What the notification window position is relative to
+          },
+        },
+      },
+    },
 
     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
@@ -155,29 +178,93 @@ return {
     --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+    local python_ignore_list = { 'E501', 'W503' }
     local servers = {
       -- clangd = {},
       gopls = {},
       -- ruff = {},
-      terraformls = {},
       pylsp = {
         plugins = {
-          -- Docs: github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
           autopep8 = {
+            enabled = false,
+          },
+          flake8 = {
+            enabled = false,
+          },
+          jedi_completion = {
+            enabled = true,
+          },
+          jedi_definition = {
+            enabled = true,
+          },
+          jedi_hover = {
+            enabled = true,
+          },
+          jedi_references = {
+            enabled = true,
+          },
+          jedi_signature_help = {
+            enabled = true,
+          },
+          jedi_symbols = {
+            enabled = true,
+          },
+          mccabe = {
+            enabled = false,
+          },
+          preload = {
+            enabled = false,
+          },
+          pycodestyle = {
+            enabled = false,
+          },
+          pydocstyle = {
+            enabled = false,
+          },
+          pyflakes = {
             enabled = false,
           },
           pylint = {
             enabled = false,
           },
-          pylsp_mypy = {},
-          pycodestyle = {
-            ignore = {
-              'E501',
-              'W503',
+          ruff = {
+            enabled = true,
+          },
+          rope_autoimport = {
+            completions = {
+              enabled = false,
             },
+            code_actions = {
+              enabled = false,
+            },
+          },
+          rope_completion = {
+            enabled = false,
+          },
+          yapf = {
+            enabled = false,
           },
         },
       },
+      terraformls = {},
+      -- pylsp = {
+      --   plugins = {
+      --     -- Docs: github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+      --     autopep8 = {
+      --       enabled = false,
+      --     },
+      --     flake8 = {
+      --       ignore = python_ignore_list,
+      --     },
+      --     pylint = {
+      --       enabled = false,
+      --     },
+      --     pylsp_mypy = {},
+      --     pycodestyle = {
+      --       ignore = python_ignore_list,
+      --     },
+      --   },
+      -- },
 
       -- pyright = {
       --   settings = {
@@ -194,7 +281,6 @@ return {
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
       ts_ls = {},
-
       ocamllsp = {},
       lua_ls = {
         -- cmd = {...},
@@ -218,7 +304,7 @@ return {
     --    :Mason
     --
     --  You can press `g?` for help in this menu.
-    require('mason').setup()
+    require('mason').setup {}
 
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
@@ -240,5 +326,6 @@ return {
         end,
       },
     }
+    require('lspconfig').futhark_lsp.setup {}
   end,
 }

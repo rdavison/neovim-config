@@ -20,3 +20,4 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.opt.scrolloff = 0
 vim.opt.hlsearch = true
+vim.opt.jumpoptions:append 'stack'

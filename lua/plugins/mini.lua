@@ -19,7 +19,7 @@ return {
 
     require('mini.files').setup {
       mappings = {
-        close = 'q',
+        close = '<Tab>',
         go_in = '<S-Right>',
         go_in_plus = '<Right>',
         go_out = '<Left>',
@@ -32,6 +32,10 @@ return {
         synchronize = '=',
         trim_left = '<',
         trim_right = '>',
+      },
+      windows = {
+        preview = false,
+        width_preview = 80,
       },
     }
 

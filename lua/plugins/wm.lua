@@ -12,6 +12,5 @@ return {
     { '<c-down>', '<cmd>TmuxNavigateDown<cr>' },
     { '<c-up>', '<cmd>TmuxNavigateUp<cr>' },
     { '<c-right>', '<cmd>TmuxNavigateRight<cr>' },
-    { '<c-\\>', '<cmd>TmuxNavigatePrevious<cr>' },
   },
 }
